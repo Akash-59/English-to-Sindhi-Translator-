@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Model checkpoints (heavy binaries)
+models/translation/*
+!models/translation/README.md
+models/diacritics/*.joblib
+
+# Large data files
+data/raw/*
+data/processed/*
+!data/raw/README.md
+!data/processed/README.md
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDE and OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

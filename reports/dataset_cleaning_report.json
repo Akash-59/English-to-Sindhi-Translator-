@@ -1,0 +1,25 @@
+{
+  "cleaning": {
+    "initial_records": 59,
+    "final_clean_records": 59,
+    "retention_rate_pct": 100.0,
+    "exclusions": {
+      "empty_or_null": 0,
+      "too_short": 0,
+      "too_long": 0,
+      "script_mismatch_english": 0,
+      "script_mismatch_sindhi": 0,
+      "ratio_anomaly": 0,
+      "exact_duplicate_pairs": 0,
+      "conflicting_duplicate_sources": 0
+    }
+  },
+  "splitting": {
+    "total": 59,
+    "train_count": 47,
+    "val_count": 5,
+    "test_count": 7,
+    "leakage_train_val": 0,
+    "leakage_train_test": 0
+  }
+}

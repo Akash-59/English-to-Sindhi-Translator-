@@ -1,0 +1,48 @@
+plain,marked,source,review_status,notes
+پل,پُلِ,Sindhi_Lexicon_MinimalPair_Bridge,native_reviewed,"pul = bridge (Pesh on Pe, Zer on Lam)"
+پل,پَلُ,Sindhi_Lexicon_MinimalPair_Moment,native_reviewed,"pal = moment (Zabar on Pe, Pesh on Lam)"
+ملڪ,مُلکُ,Sindhi_Lexicon_MinimalPair_Country,native_reviewed,mulk = country/nation (Pesh on Meem)
+ملڪ,مَلَڪُ,Sindhi_Lexicon_MinimalPair_Angel,native_reviewed,"malak = angel (Zabar on Meem, Zabar on Lam)"
+گل,گُلُ,Sindhi_Core_Vocabulary,native_reviewed,gul = flower (Pesh on Gaf)
+دل,دِلِ,Sindhi_Core_Vocabulary,native_reviewed,dil = heart (Zer under Dal)
+بلبل,بُلبُلِ,Sindhi_Core_Vocabulary,native_reviewed,bulbul = nightingale
+علم,عِلمُ,Sindhi_Educational_Corpus,native_reviewed,"ilm = knowledge (Zer under Ain, Pesh on Meem)"
+ڪتاب,ڪِتابُ,Sindhi_Educational_Corpus,native_reviewed,kitab = book (Zer under Sindhi Kaf)
+استاد,اُستادُ,Sindhi_Educational_Corpus,native_reviewed,ustad = teacher (Pesh on Alif)
+شاگرد,شاگِردُ,Sindhi_Educational_Corpus,native_reviewed,shagird = student (Zer under Gaf)
+سبق,سَبَقُ,Sindhi_Educational_Corpus,native_reviewed,"sabaq = lesson (Zabar on Seen, Zabar on Be)"
+قلم,قَلَمُ,Sindhi_Educational_Corpus,native_reviewed,"qalam = pen (Zabar on Qaf, Zabar on Lam)"
+مدرسه,مَدرَسَه,Sindhi_Educational_Corpus,native_reviewed,madrasah = school
+سائنس,سائِنس,Sindhi_Educational_Corpus,native_reviewed,science
+مدد,مَدَدَ,Sindhi_Moral_Lexicon,native_reviewed,"madad = help (Zabar on Meem, Zabar on Dal)"
+محبت,مَحَبَّتَ,Sindhi_Moral_Lexicon,native_reviewed,"muhabbat = love (Zabar on Meem, Tashdid on Be)"
+عقل,عَقلُ,Sindhi_Moral_Lexicon,native_reviewed,aql = intellect (Zabar on Ain)
+شڪر,شُڪرُ,Sindhi_Moral_Lexicon,native_reviewed,shukr = gratitude (Pesh on Sheen)
+صبر,صَبرُ,Sindhi_Moral_Lexicon,native_reviewed,sabr = patience (Zabar on Saad)
+حق,حَقُّ,Sindhi_Moral_Lexicon,native_reviewed,"haq = right/truth (Zabar on Heh, Tashdid on Qaf)"
+سچ,سَچُ,Sindhi_Moral_Lexicon,native_reviewed,sach = truth (Zabar on Seen)
+ڪوڙ,ڪُوڙُ,Sindhi_Moral_Lexicon,native_reviewed,koor = lie (Pesh on Kaf)
+محنت,مِحنَتَ,Sindhi_Moral_Lexicon,native_reviewed,"mehnat = hard work (Zer under Meem, Zabar on Noon)"
+سج,سِجُ,Sindhi_Nature_Vocabulary,native_reviewed,"sij = sun (Zer under Seen, Pesh on Sindhi Jeem)"
+چنڊ,چَنڊُ,Sindhi_Nature_Vocabulary,native_reviewed,"chand = moon (Zabar on Che, Pesh on Sindhi Ddal)"
+پاڻي,پاڻِي,Sindhi_Nature_Vocabulary,native_reviewed,pani = water
+گهر,گَهرُ,Sindhi_Nature_Vocabulary,native_reviewed,ghar = house/home (Zabar on Gaf)
+صحت,صِحَتَ,Sindhi_Nature_Vocabulary,native_reviewed,"sehat = health (Zer under Saad, Zabar on Heh)"
+صبح,صُبحُ,Sindhi_Nature_Vocabulary,native_reviewed,subuh = morning (Pesh on Saad)
+شام,شامَ,Sindhi_Nature_Vocabulary,native_reviewed,shaam = evening
+رات,راتِ,Sindhi_Nature_Vocabulary,native_reviewed,raat = night
+ڏينهن,ڏِينهنُ,Sindhi_Nature_Vocabulary,native_reviewed,dheenhan = day (Zer under Sindhi Ddal)
+ٻار,ٻارُ,Sindhi_Family_Corpus,native_reviewed,baar = child (implosive bbe)
+پيءُ,پِيءُ,Sindhi_Family_Corpus,native_reviewed,peeu = father
+ڀاءُ,ڀاءُ,Sindhi_Family_Corpus,native_reviewed,bhaau = brother
+ڀيڻ,ڀيڻِ,Sindhi_Family_Corpus,native_reviewed,bhen = sister
+علم روشني آهي۔,عِلمُ رَوشنِي آهي۔,Sindhi_Proverbs_Educational,native_reviewed,Knowledge is light.
+صحت وڏي نعمت آهي۔,صِحَتَ وَڏِي نِعمَتَ آهي۔,Sindhi_Proverbs_Educational,native_reviewed,Health is a great blessing.
+سچ هميشه کٽيندو آهي۔,سَچُ هَميشَه کَٽيندَو آهي۔,Sindhi_Proverbs_Educational,native_reviewed,Truth always wins.
+ڪتاب پڙهڻ سٺي عادت آهي۔,ڪِتابُ پَڙهَڻُ سُٺِي عادَتَ آهي۔,Sindhi_Proverbs_Educational,native_reviewed,Reading books is a good habit.
+مان سنڌي سکي رهيو آهيان۔,مان سِنڌِي سِکِي رَهيو آهيان۔,Sindhi_Proverbs_Educational,native_reviewed,I am learning Sindhi.
+مون کي مدد گهرجي۔,مُون کي مَدَدَ گُهرجِي۔,Sindhi_Proverbs_Educational,native_reviewed,I need help.
+محنت ڪاميابيءَ جو راز آهي۔,مِحنَتَ ڪامِيابِيءَ جو رازُ آهي۔,Sindhi_Proverbs_Educational,native_reviewed,Hard work is the secret to success.
+استاد جي عزت ڪريو۔,اُستادَ جِي عِزَّتَ ڪَرِيو۔,Sindhi_Proverbs_Educational,native_reviewed,Respect the teacher.
+پاڻي زندگي آهي۔,پاڻِي زِندَگِي آهي۔,Sindhi_Proverbs_Educational,native_reviewed,Water is life.
+پنهنجو وقت ضايع نه ڪريو۔,پَنهِنجو وَقتُ ضايَعَ نَه ڪَرِيو۔,Sindhi_Proverbs_Educational,native_reviewed,Do not waste your time.

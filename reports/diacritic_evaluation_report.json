@@ -1,0 +1,33 @@
+{
+  "test_dataset": "C:\\Users\\Khokh\\Desktop\\Eng to sindh converter\\data\\test\\diacritics_test.csv",
+  "total_test_sentences": 6,
+  "exact_sentence_accuracy": 0.1667,
+  "existing_mark_preservation_accuracy": 1.0,
+  "macro_f1": 0.6276,
+  "per_diacritic_metrics": {
+    "ZABAR": {
+      "precision": 0.6667,
+      "recall": 0.5455,
+      "f1": 0.6,
+      "support": 11
+    },
+    "ZER": {
+      "precision": 0.8333,
+      "recall": 0.7143,
+      "f1": 0.7692,
+      "support": 7
+    },
+    "PESH": {
+      "precision": 0.2222,
+      "recall": 0.5,
+      "f1": 0.3077,
+      "support": 4
+    },
+    "NONE": {
+      "precision": 0.8696,
+      "recall": 0.8,
+      "f1": 0.8333,
+      "support": 25
+    }
+  }
+}
