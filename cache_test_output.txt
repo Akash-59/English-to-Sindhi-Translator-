@@ -1,0 +1,129 @@
+﻿python : [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+At line:1 char:53
++ ... to sindh converter"; python test_cache_implementation.py *>&1 | Out-F ...
++                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([transformers] ...dtype` instead! 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+================================================================================
+PHASE 2: CACHE IMPLEMENTATION TEST
+================================================================================
+Timestamp: 2026-10-25 15:23:54
+
+TEST 1: Verify Cache is Enabled
+--------------------------------------------------------------------------------
+[ModelLoader] Loading tokenizer from: C:\Users\Khokh\Desktop\Eng to sindh converter\models\translation\nllb-200-distilled-600M...
+[ModelLoader] Loading model weights from: C:\Users\Khokh\Desktop\Eng to sindh converter\models\translation\nllb-200-distilled-600M on CPU...
+
+Loading weights:   0%|          | 0/512 [00:00<?, ?it/s]
+Loading weights: 100%|ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê| 512/512 [00:00<00:00, 
+10609.42it/s]
+[transformers] The following generation flags are not valid and may be 
+ignored: ['early_stopping']. Set `TRANSFORMERS_VERBOSITY=info` for more 
+details.
+[ModelLoader] Model loaded in 6.78s. RAM consumed: 1258.0 MB (Total process RSS: 1634.7 MB)
+[DiacriticRestorer] Loaded model and 48 lexical entries from C:\Users\Khokh\Desktop\Eng to sindh converter\models\diacritics\diacritic_restorer.joblib
+Cache enabled: True
+Cache max size: 1000 entries
+
+TEST 2: First Run (Uncached - Baseline)
+--------------------------------------------------------------------------------
+[ 1/15] 7133.0 ms | COMPUTED | Hello, how are you?
+[ 2/15] 1017.7 ms | COMPUTED | Good morning.
+[ 3/15]  912.9 ms | COMPUTED | Thank you very much.
+[ 4/15] 1290.4 ms | COMPUTED | What is your name?
+[ 5/15] 1192.8 ms | COMPUTED | Where do you live?
+[ 6/15] 1528.8 ms | COMPUTED | Where is the railway station?
+[ 7/15] 1983.8 ms | COMPUTED | Can you help me?
+[ 8/15] 2101.0 ms | COMPUTED | I am learning Sindhi.
+[ 9/15] 1720.8 ms | COMPUTED | Books are our best friends.
+[10/15] 1718.0 ms | COMPUTED | The student is reading an important book.
+[11/15] 1728.4 ms | COMPUTED | Education is the key to success.
+[12/15] 3031.4 ms | COMPUTED | The teacher is explaining a difficult concept
+[13/15] 3501.1 ms | COMPUTED | I need to go to the hospital because I am not
+[14/15] 2608.9 ms | COMPUTED | Artificial intelligence is transforming commu
+[15/15] 2974.2 ms | COMPUTED | The computer program helps translate language
+
+Uncached average: 2296.2 ms
+Uncached median:  1728.4 ms
+
+Cache stats after first run:
+  Entries: 15/1000
+  Hits: 0
+  Misses: 15
+
+TEST 3: Second Run (Should Use Cache)
+--------------------------------------------------------------------------------
+[ 1/15]    5.4 ms | Γ£ô CACHE HIT | Hello, how are you?
+[ 2/15]    0.0 ms | Γ£ô CACHE HIT | Good morning.
+[ 3/15]    8.5 ms | Γ£ô CACHE HIT | Thank you very much.
+[ 4/15]    9.0 ms | Γ£ô CACHE HIT | What is your name?
+[ 5/15]    3.5 ms | Γ£ô CACHE HIT | Where do you live?
+[ 6/15]   15.6 ms | Γ£ô CACHE HIT | Where is the railway station?
+[ 7/15]   16.2 ms | Γ£ô CACHE HIT | Can you help me?
+[ 8/15]    7.3 ms | Γ£ô CACHE HIT | I am learning Sindhi.
+[ 9/15]   18.3 ms | Γ£ô CACHE HIT | Books are our best friends.
+[10/15]    9.7 ms | Γ£ô CACHE HIT | The student is reading an important book.
+[11/15]   12.5 ms | Γ£ô CACHE HIT | Education is the key to success.
+[12/15]   17.8 ms | Γ£ô CACHE HIT | The teacher is explaining a difficult concept
+[13/15]   31.3 ms | Γ£ô CACHE HIT | I need to go to the hospital because I am not
+[14/15]   16.9 ms | Γ£ô CACHE HIT | Artificial intelligence is transforming commu
+[15/15]   23.2 ms | Γ£ô CACHE HIT | The computer program helps translate language
+
+Cached average:   13.0 ms
+Cached median:    12.5 ms
+
+Cache stats after second run:
+  Entries: 15/1000
+  Hits: 15
+  Misses: 15
+  Hit rate: 50.0%
+
+TEST 4: Cache Speedup Analysis
+--------------------------------------------------------------------------------
+[ 1] Γ£ô 7133.0ms ΓåÆ   5.4ms | Speedup:  +99.9% | Hello, how are you?
+[ 2] Γ£ô 1017.7ms ΓåÆ   0.0ms | Speedup: +100.0% | Good morning.
+[ 3] Γ£ô  912.9ms ΓåÆ   8.5ms | Speedup:  +99.1% | Thank you very much.
+[ 4] Γ£ô 1290.4ms ΓåÆ   9.0ms | Speedup:  +99.3% | What is your name?
+[ 5] Γ£ô 1192.8ms ΓåÆ   3.5ms | Speedup:  +99.7% | Where do you live?
+[ 6] Γ£ô 1528.8ms ΓåÆ  15.6ms | Speedup:  +99.0% | Where is the railway station?
+[ 7] Γ£ô 1983.8ms ΓåÆ  16.1ms | Speedup:  +99.2% | Can you help me?
+[ 8] Γ£ô 2101.0ms ΓåÆ   7.3ms | Speedup:  +99.7% | I am learning Sindhi.
+[ 9] Γ£ô 1720.8ms ΓåÆ  18.3ms | Speedup:  +98.9% | Books are our best friends.
+[10] Γ£ô 1718.0ms ΓåÆ   9.7ms | Speedup:  +99.4% | The student is reading an important
+[11] Γ£ô 1728.4ms ΓåÆ  12.5ms | Speedup:  +99.3% | Education is the key to success.
+[12] Γ£ô 3031.4ms ΓåÆ  17.8ms | Speedup:  +99.4% | The teacher is explaining a difficu
+[13] Γ£ô 3501.1ms ΓåÆ  31.3ms | Speedup:  +99.1% | I need to go to the hospital becaus
+[14] Γ£ô 2608.9ms ΓåÆ  16.9ms | Speedup:  +99.4% | Artificial intelligence is transfor
+[15] Γ£ô 2974.2ms ΓåÆ  23.2ms | Speedup:  +99.2% | The computer program helps translat
+
+Average speedup: +99.4%
+Γ£ô All cached outputs match original outputs exactly
+
+TEST 5: Cache with Different Parameters
+--------------------------------------------------------------------------------
+Testing that different num_beams creates separate cache entries...
+num_beams=2 (first):  cache_hit=True
+num_beams=2 (second): cache_hit=True
+num_beams=1:          cache_hit=False
+Γ£ô Cache correctly distinguishes different parameters
+
+TEST 6: Cache Clear Functionality
+--------------------------------------------------------------------------------
+Cache size before clear: 16
+Cache size after clear: 0
+Hits reset: 0
+Misses reset: 0
+Translation after clear: cache_hit=False
+Γ£ô Cache clear works correctly
+
+================================================================================
+GENERATING CACHE EVALUATION REPORT
+================================================================================
+Γ£ô JSON report saved: C:\Users\Khokh\Desktop\Eng to sindh converter\reports\phase2_cache_evaluation.json
+Γ£ô Markdown report saved: C:\Users\Khokh\Desktop\Eng to sindh converter\reports\phase2_cache_evaluation.md
+
+================================================================================
+Γ£ô CACHE TESTING COMPLETE
+================================================================================

@@ -1,0 +1,54 @@
+{
+  "test_dataset": "C:\\Users\\Khokh\\Desktop\\Eng to sindh converter\\data\\test\\parallel_test.csv",
+  "total_test_samples": 7,
+  "model_used": "facebook/nllb-200-distilled-600M",
+  "num_beams": 2,
+  "bleu_score": 33.87,
+  "chrf_score": 70.36,
+  "script_validity_pct": 100.0,
+  "avg_latency_ms": 4444.32,
+  "samples": [
+    {
+      "english": "The teacher is in the classroom.",
+      "reference": "استاد ڪلاس روم ۾ آهي۔",
+      "hypothesis": "استاد ڪلاس ۾ آهي.",
+      "latency_ms": 4112.74
+    },
+    {
+      "english": "Where do you live?",
+      "reference": "توهان ڪٿي رهو ٿا؟",
+      "hypothesis": "تون ڪٿي رهندو آهين؟",
+      "latency_ms": 3180.0
+    },
+    {
+      "english": "Where is the railway station?",
+      "reference": "ريلوي اسٽيشن ڪٿي آهي؟",
+      "hypothesis": "ريلوي اسٽيشن ڪٿي آهي؟",
+      "latency_ms": 3649.72
+    },
+    {
+      "english": "I am fine.",
+      "reference": "مان ٺيڪ آهيان۔",
+      "hypothesis": "مان ٺيڪ آهيان.",
+      "latency_ms": 3346.25
+    },
+    {
+      "english": "My family lives together.",
+      "reference": "منهنجو خاندان گڏ رهي ٿو۔",
+      "hypothesis": "منهنجو خاندان گڏ رهندو آهي.",
+      "latency_ms": 3941.15
+    },
+    {
+      "english": "The computer requires a password.",
+      "reference": "ڪمپيوٽر کي پاسورڊ جي ضرورت آهي۔",
+      "hypothesis": "ڪمپيوٽر کي پاسورڊ جي ضرورت آهي.",
+      "latency_ms": 9445.24
+    },
+    {
+      "english": "Take this medicine after meals.",
+      "reference": "هي دوا ماني کائڻ کان پوءِ وٺو۔",
+      "hypothesis": "هي دوا کائڻ کانپوءِ وٺو.",
+      "latency_ms": 3435.17
+    }
+  ]
+}

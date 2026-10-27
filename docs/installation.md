@@ -85,4 +85,16 @@ To strictly prove that the application executes without internet connectivity:
    streamlit run app.py
    ```
 4. Enter an English sentence (e.g. `I am studying at the university.`) and click **Translate to Sindhi**.
-5. Observe instantaneous generation in Perso-Arabic Sindhi script with zero outbound network calls!
+5. Confirm that local translation works with the weights already on disk and no remote inference calls.
+
+## 6. Public Free Deployment
+
+The local `requirements.txt` is retained for Windows/offline use. For Streamlit Community
+Cloud, deploy `cloud/app.py`, which uses the lightweight `cloud/requirements.txt` and
+does not import PyTorch, Transformers, or Canopy. Configure Cloudflare Workers AI
+credentials only through the hosting platform's secret manager. Cloud mode does not
+enable hosted speech recognition because Sindhi/Perso-Arabic accuracy has not been
+verified.
+
+See [cloud_deployment.md](./cloud_deployment.md) for provider quota, hosting limits,
+credentials, deployment steps, and remaining limitations.

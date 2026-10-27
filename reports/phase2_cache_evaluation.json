@@ -1,0 +1,267 @@
+{
+  "timestamp": "2026-10-27T15:18:48.312393",
+  "phase": "Phase 2 - Input Caching",
+  "cache_config": {
+    "enabled": true,
+    "max_size": 1000
+  },
+  "uncached_performance": {
+    "total_sentences": 15,
+    "average_latency_ms": 3818.47,
+    "median_latency_ms": 2560.77,
+    "min_latency_ms": 1829.36,
+    "max_latency_ms": 9492.38
+  },
+  "cached_performance": {
+    "total_sentences": 15,
+    "average_latency_ms": 14.22,
+    "median_latency_ms": 13.08,
+    "min_latency_ms": 0.0,
+    "max_latency_ms": 34.99
+  },
+  "speedup": {
+    "average_speedup_percent": 99.59,
+    "absolute_time_saved_ms": 3804.25
+  },
+  "cache_statistics": {
+    "size": 1,
+    "max_size": 1000,
+    "hits": 0,
+    "misses": 1,
+    "hit_rate_percent": 0.0,
+    "total_requests": 1
+  },
+  "correctness": {
+    "output_mismatches": 0,
+    "all_outputs_match": true
+  },
+  "first_run_results": [
+    {
+      "index": 1,
+      "input": "Hello, how are you?",
+      "output": "سلام، ڪيئن آهين؟",
+      "output_marked": "سِلامُ، ڪِيئنُ آهينُ؟",
+      "latency_ms": 9492.38,
+      "cache_hit": false
+    },
+    {
+      "index": 2,
+      "input": "Good morning.",
+      "output": "صبح جو سلام.",
+      "output_marked": "صُبحُ جو سِلامُ.",
+      "latency_ms": 2343.62,
+      "cache_hit": false
+    },
+    {
+      "index": 3,
+      "input": "Thank you very much.",
+      "output": "شڪر آهي.",
+      "output_marked": "شُڪرُ آهيُ.",
+      "latency_ms": 2492.97,
+      "cache_hit": false
+    },
+    {
+      "index": 4,
+      "input": "What is your name?",
+      "output": "تنهنجو نالو ڇا آهي؟",
+      "output_marked": "تَنهنجَوُ نالِوُ ڇاُ آهيُ؟",
+      "latency_ms": 2270.5,
+      "cache_hit": false
+    },
+    {
+      "index": 5,
+      "input": "Where do you live?",
+      "output": "تون ڪٿي رهندو آهين؟",
+      "output_marked": "تَونُ ڪَٿِيُ رَهندَوُ آهينُ؟",
+      "latency_ms": 2134.78,
+      "cache_hit": false
+    },
+    {
+      "index": 6,
+      "input": "Where is the railway station?",
+      "output": "ريلوي اسٽيشن ڪٿي آهي؟",
+      "output_marked": "رِيلوِي اُسٽيشنُ ڪَٿِيُ آهيُ؟",
+      "latency_ms": 1829.36,
+      "cache_hit": false
+    },
+    {
+      "index": 7,
+      "input": "Can you help me?",
+      "output": "ڇا تون مون کي مدد ڪري سگهين ٿو؟",
+      "output_marked": "ڇاُ تَونُ مَونُ کِي مَدَدَ ڪَرِيُ سَگهينُ ٿَوُ؟",
+      "latency_ms": 3014.87,
+      "cache_hit": false
+    },
+    {
+      "index": 8,
+      "input": "I am learning Sindhi.",
+      "output": "آءٌ سنڌي سکڻ وارو آهيان.",
+      "output_marked": "آءٌ سِنڌِي سِکَڻُ وارَوُ آهيانُ.",
+      "latency_ms": 2312.42,
+      "cache_hit": false
+    },
+    {
+      "index": 9,
+      "input": "Books are our best friends.",
+      "output": "ڪتاب اسان جا بهترين دوست آهن.",
+      "output_marked": "ڪِتابُ اُسانُ جاُ بَهتَرينُ دَوسَتُ آهنُ.",
+      "latency_ms": 1860.12,
+      "cache_hit": false
+    },
+    {
+      "index": 10,
+      "input": "The student is reading an important book.",
+      "output": "شاگرد هڪ اهم ڪتاب پڙهي رهيو آهي.",
+      "output_marked": "شاگِردُ هَڪُ اهمُ ڪِتابُ پَڙهِيُ رَهيو آهيُ.",
+      "latency_ms": 2560.77,
+      "cache_hit": false
+    },
+    {
+      "index": 11,
+      "input": "Education is the key to success.",
+      "output": "تعليم ڪاميابي جي ڪنجي آهي.",
+      "output_marked": "تَعلِيمُ ڪامِيابِيُ جِي ڪِنجِيُ آهيُ.",
+      "latency_ms": 3632.43,
+      "cache_hit": false
+    },
+    {
+      "index": 12,
+      "input": "The teacher is explaining a difficult concept to the students in the classroom.",
+      "output": "استاد ڪلاس ۾ شاگردن کي هڪ ڏکيو تصور بيان ڪري رهيو آهي.",
+      "output_marked": "اُستادُ ڪِلاُسُ ۾ُ شاگَردَنِ کِي هَڪُ ڏِکِيوُ تَصورُ بِيانُ ڪَرِيُ رَهيو آهيُ.",
+      "latency_ms": 6623.17,
+      "cache_hit": false
+    },
+    {
+      "index": 13,
+      "input": "I need to go to the hospital because I am not feeling well today.",
+      "output": "مون کي اسپتال وڃڻ جي ضرورت آهي ڇاڪاڻ ته مون کي اڄ سٺو محسوس نه آهي.",
+      "output_marked": "مَونُ کِي اُسپتاُلُ وڃڻُ جِي ضَرَورَتُ آهيُ ڇاڪاڻُ تَهُ مَونُ کِي اُڄُ سِٺَوُ مَحسَوَسُ نَهُ آهيُ.",
+      "latency_ms": 5107.87,
+      "cache_hit": false
+    },
+    {
+      "index": 14,
+      "input": "Artificial intelligence is transforming communication.",
+      "output": "مصنوعي ذهانت مواصلات کي تبديل ڪري رهي آهي.",
+      "output_marked": "مِصنوعِي ذَهانتَ مَواصلاتِ کِي تَبدِيلِ ڪَرِيُ رَهيُ آهيُ.",
+      "latency_ms": 7243.53,
+      "cache_hit": false
+    },
+    {
+      "index": 15,
+      "input": "The computer program helps translate languages.",
+      "output": "ڪمپيوٽر پروگرام ٻولين جو ترجمو ڪرڻ ۾ مدد ڪندو آهي.",
+      "output_marked": "ڪَمپِيوٽرُ پَروگرامِ ٻَولِينُ جو تَرجمَوُ ڪَرڻُ ۾ُ مَدَدَ ڪِندَوُ آهيُ.",
+      "latency_ms": 4358.2,
+      "cache_hit": false
+    }
+  ],
+  "second_run_results": [
+    {
+      "index": 1,
+      "input": "Hello, how are you?",
+      "output": "سلام، ڪيئن آهين؟",
+      "latency_ms": 13.83,
+      "cache_hit": true
+    },
+    {
+      "index": 2,
+      "input": "Good morning.",
+      "output": "صبح جو سلام.",
+      "latency_ms": 1.74,
+      "cache_hit": true
+    },
+    {
+      "index": 3,
+      "input": "Thank you very much.",
+      "output": "شڪر آهي.",
+      "latency_ms": 0.0,
+      "cache_hit": true
+    },
+    {
+      "index": 4,
+      "input": "What is your name?",
+      "output": "تنهنجو نالو ڇا آهي؟",
+      "latency_ms": 15.18,
+      "cache_hit": true
+    },
+    {
+      "index": 5,
+      "input": "Where do you live?",
+      "output": "تون ڪٿي رهندو آهين؟",
+      "latency_ms": 6.03,
+      "cache_hit": true
+    },
+    {
+      "index": 6,
+      "input": "Where is the railway station?",
+      "output": "ريلوي اسٽيشن ڪٿي آهي؟",
+      "latency_ms": 10.37,
+      "cache_hit": true
+    },
+    {
+      "index": 7,
+      "input": "Can you help me?",
+      "output": "ڇا تون مون کي مدد ڪري سگهين ٿو؟",
+      "latency_ms": 18.22,
+      "cache_hit": true
+    },
+    {
+      "index": 8,
+      "input": "I am learning Sindhi.",
+      "output": "آءٌ سنڌي سکڻ وارو آهيان.",
+      "latency_ms": 11.3,
+      "cache_hit": true
+    },
+    {
+      "index": 9,
+      "input": "Books are our best friends.",
+      "output": "ڪتاب اسان جا بهترين دوست آهن.",
+      "latency_ms": 11.32,
+      "cache_hit": true
+    },
+    {
+      "index": 10,
+      "input": "The student is reading an important book.",
+      "output": "شاگرد هڪ اهم ڪتاب پڙهي رهيو آهي.",
+      "latency_ms": 9.19,
+      "cache_hit": true
+    },
+    {
+      "index": 11,
+      "input": "Education is the key to success.",
+      "output": "تعليم ڪاميابي جي ڪنجي آهي.",
+      "latency_ms": 13.08,
+      "cache_hit": true
+    },
+    {
+      "index": 12,
+      "input": "The teacher is explaining a difficult concept to the students in the classroom.",
+      "output": "استاد ڪلاس ۾ شاگردن کي هڪ ڏکيو تصور بيان ڪري رهيو آهي.",
+      "latency_ms": 21.64,
+      "cache_hit": true
+    },
+    {
+      "index": 13,
+      "input": "I need to go to the hospital because I am not feeling well today.",
+      "output": "مون کي اسپتال وڃڻ جي ضرورت آهي ڇاڪاڻ ته مون کي اڄ سٺو محسوس نه آهي.",
+      "latency_ms": 34.99,
+      "cache_hit": true
+    },
+    {
+      "index": 14,
+      "input": "Artificial intelligence is transforming communication.",
+      "output": "مصنوعي ذهانت مواصلات کي تبديل ڪري رهي آهي.",
+      "latency_ms": 17.22,
+      "cache_hit": true
+    },
+    {
+      "index": 15,
+      "input": "The computer program helps translate languages.",
+      "output": "ڪمپيوٽر پروگرام ٻولين جو ترجمو ڪرڻ ۾ مدد ڪندو آهي.",
+      "latency_ms": 29.18,
+      "cache_hit": true
+    }
+  ]
+}

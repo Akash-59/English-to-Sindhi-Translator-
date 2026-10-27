@@ -1,0 +1,249 @@
+{
+  "timestamp": "2026-10-25T14:53:12.662327",
+  "platform": "win32",
+  "python_version": "3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)]",
+  "model": "facebook/nllb-200-distilled-600M",
+  "cold_start": {
+    "time_seconds": 10.93,
+    "memory_footprint_mb": 1116.8
+  },
+  "warm_inference": {
+    "total_sentences_tested": 15,
+    "average_latency_ms": 4815.98,
+    "median_latency_ms": 4472.43,
+    "min_latency_ms": 2502.7,
+    "max_latency_ms": 9796.24,
+    "std_dev_ms": 2066.33
+  },
+  "caching": {
+    "cache_speedup_percent": 2.2,
+    "caching_detected": false,
+    "note": "No significant caching detected - each translation is computed fresh"
+  },
+  "memory": {
+    "peak_process_mb": 2410.4,
+    "system_total_gb": 7.4,
+    "system_available_gb": 0.7
+  },
+  "quality": {
+    "test_dataset": "C:\\Users\\Khokh\\Desktop\\Eng to sindh converter\\data\\test\\parallel_test.csv",
+    "total_test_samples": 7,
+    "model_used": "facebook/nllb-200-distilled-600M",
+    "num_beams": 2,
+    "bleu_score": 33.87,
+    "chrf_score": 70.36,
+    "script_validity_pct": 100.0,
+    "avg_latency_ms": 4444.32,
+    "samples": [
+      {
+        "english": "The teacher is in the classroom.",
+        "reference": "استاد ڪلاس روم ۾ آهي۔",
+        "hypothesis": "استاد ڪلاس ۾ آهي.",
+        "latency_ms": 4112.74
+      },
+      {
+        "english": "Where do you live?",
+        "reference": "توهان ڪٿي رهو ٿا؟",
+        "hypothesis": "تون ڪٿي رهندو آهين؟",
+        "latency_ms": 3180.0
+      },
+      {
+        "english": "Where is the railway station?",
+        "reference": "ريلوي اسٽيشن ڪٿي آهي؟",
+        "hypothesis": "ريلوي اسٽيشن ڪٿي آهي؟",
+        "latency_ms": 3649.72
+      },
+      {
+        "english": "I am fine.",
+        "reference": "مان ٺيڪ آهيان۔",
+        "hypothesis": "مان ٺيڪ آهيان.",
+        "latency_ms": 3346.25
+      },
+      {
+        "english": "My family lives together.",
+        "reference": "منهنجو خاندان گڏ رهي ٿو۔",
+        "hypothesis": "منهنجو خاندان گڏ رهندو آهي.",
+        "latency_ms": 3941.15
+      },
+      {
+        "english": "The computer requires a password.",
+        "reference": "ڪمپيوٽر کي پاسورڊ جي ضرورت آهي۔",
+        "hypothesis": "ڪمپيوٽر کي پاسورڊ جي ضرورت آهي.",
+        "latency_ms": 9445.24
+      },
+      {
+        "english": "Take this medicine after meals.",
+        "reference": "هي دوا ماني کائڻ کان پوءِ وٺو۔",
+        "hypothesis": "هي دوا کائڻ کانپوءِ وٺو.",
+        "latency_ms": 3435.17
+      }
+    ]
+  },
+  "detailed_results": [
+    {
+      "index": 1,
+      "input": "Hello, how are you?",
+      "input_chars": 19,
+      "input_words": 4,
+      "output": "سلام، ڪيئن آهين؟",
+      "output_marked": "سِلامُ، ڪِيئنُ آهينُ؟",
+      "output_words": 3,
+      "latency_ms": 3791.98,
+      "tokens_per_sec": 0.79
+    },
+    {
+      "index": 2,
+      "input": "Good morning.",
+      "input_chars": 13,
+      "input_words": 2,
+      "output": "صبح جو سلام.",
+      "output_marked": "صُبحُ جو سِلامُ.",
+      "output_words": 3,
+      "latency_ms": 2711.53,
+      "tokens_per_sec": 1.11
+    },
+    {
+      "index": 3,
+      "input": "Thank you very much.",
+      "input_chars": 20,
+      "input_words": 4,
+      "output": "شڪر آهي.",
+      "output_marked": "شَڪرُ آهيُ.",
+      "output_words": 2,
+      "latency_ms": 2502.7,
+      "tokens_per_sec": 0.8
+    },
+    {
+      "index": 4,
+      "input": "What is your name?",
+      "input_chars": 18,
+      "input_words": 4,
+      "output": "تنهنجو نالو ڇا آهي؟",
+      "output_marked": "تَنهنجَوُ نالِوُ ڇاُ آهيُ؟",
+      "output_words": 4,
+      "latency_ms": 3083.85,
+      "tokens_per_sec": 1.3
+    },
+    {
+      "index": 5,
+      "input": "Where do you live?",
+      "input_chars": 18,
+      "input_words": 4,
+      "output": "تون ڪٿي رهندو آهين؟",
+      "output_marked": "تَونُ ڪَٿِيُ رَهندَوُ آهينُ؟",
+      "output_words": 4,
+      "latency_ms": 2986.44,
+      "tokens_per_sec": 1.34
+    },
+    {
+      "index": 6,
+      "input": "Where is the railway station?",
+      "input_chars": 29,
+      "input_words": 5,
+      "output": "ريلوي اسٽيشن ڪٿي آهي؟",
+      "output_marked": "رِيلوِي اُسٽيشنُ ڪَٿِيُ آهيُ؟",
+      "output_words": 4,
+      "latency_ms": 3738.83,
+      "tokens_per_sec": 1.07
+    },
+    {
+      "index": 7,
+      "input": "Can you help me?",
+      "input_chars": 16,
+      "input_words": 4,
+      "output": "ڇا تون مون کي مدد ڪري سگهين ٿو؟",
+      "output_marked": "ڇاُ تَونُ مَونُ کِي مَدَدَ ڪَرِيُ سَگهينُ ٿَوُ؟",
+      "output_words": 8,
+      "latency_ms": 4476.93,
+      "tokens_per_sec": 1.79
+    },
+    {
+      "index": 8,
+      "input": "I am learning Sindhi.",
+      "input_chars": 21,
+      "input_words": 4,
+      "output": "آءٌ سنڌي سکڻ وارو آهيان.",
+      "output_marked": "آءٌ سِنڌِي سِکَڻُ وارَوُ آهيانُ.",
+      "output_words": 5,
+      "latency_ms": 4904.12,
+      "tokens_per_sec": 1.02
+    },
+    {
+      "index": 9,
+      "input": "Books are our best friends.",
+      "input_chars": 27,
+      "input_words": 5,
+      "output": "ڪتاب اسان جا بهترين دوست آهن.",
+      "output_marked": "ڪِتابُ اُسانُ جاُ بَهتَرينُ دَوسَتُ آهنُ.",
+      "output_words": 6,
+      "latency_ms": 4809.98,
+      "tokens_per_sec": 1.25
+    },
+    {
+      "index": 10,
+      "input": "The student is reading an important book.",
+      "input_chars": 41,
+      "input_words": 7,
+      "output": "شاگرد هڪ اهم ڪتاب پڙهي رهيو آهي.",
+      "output_marked": "شاگَرَدُ هَڪُ اهمُ ڪِتابُ پَڙهِيُ رَهيو آهيُ.",
+      "output_words": 7,
+      "latency_ms": 4472.43,
+      "tokens_per_sec": 1.57
+    },
+    {
+      "index": 11,
+      "input": "Education is the key to success.",
+      "input_chars": 32,
+      "input_words": 6,
+      "output": "تعليم ڪاميابي جي ڪنجي آهي.",
+      "output_marked": "تَعلِيمُ ڪامِيابِيُ جِي ڪِنجِيُ آهيُ.",
+      "output_words": 5,
+      "latency_ms": 4375.81,
+      "tokens_per_sec": 1.14
+    },
+    {
+      "index": 12,
+      "input": "The teacher is explaining a difficult concept to the students in the classroom.",
+      "input_chars": 79,
+      "input_words": 13,
+      "output": "استاد ڪلاس ۾ شاگردن کي هڪ ڏکيو تصور بيان ڪري رهيو آهي.",
+      "output_marked": "اُستادُ ڪِلاُسُ ۾ُ شاگَردَنِ کِي هَڪُ ڏِکِيوُ تَصورُ بِيانُ ڪَرِيُ رَهيو آهيُ.",
+      "output_words": 12,
+      "latency_ms": 9796.24,
+      "tokens_per_sec": 1.22
+    },
+    {
+      "index": 13,
+      "input": "I need to go to the hospital because I am not feeling well today.",
+      "input_chars": 65,
+      "input_words": 14,
+      "output": "مون کي اسپتال وڃڻ جي ضرورت آهي ڇاڪاڻ ته مون کي اڄ سٺو محسوس نه آهي.",
+      "output_marked": "مَونُ کِي اُسپتاُلُ وڃڻُ جِي ضَرَورَتُ آهيُ ڇاڪاڻُ تَهُ مَونُ کِي اُڄُ سِٺَوُ مَحسَوَسُ نَهُ آهيُ.",
+      "output_words": 16,
+      "latency_ms": 8400.69,
+      "tokens_per_sec": 1.9
+    },
+    {
+      "index": 14,
+      "input": "Artificial intelligence is transforming communication.",
+      "input_chars": 54,
+      "input_words": 5,
+      "output": "مصنوعي ذهانت مواصلات کي تبديل ڪري رهي آهي.",
+      "output_marked": "مِصنوعِي ذَهانتَ مَواصلاتِ کِي تَبدِيلِ ڪَرِيُ رَهيُ آهيُ.",
+      "output_words": 8,
+      "latency_ms": 5887.61,
+      "tokens_per_sec": 1.36
+    },
+    {
+      "index": 15,
+      "input": "The computer program helps translate languages.",
+      "input_chars": 47,
+      "input_words": 6,
+      "output": "ڪمپيوٽر پروگرام ٻولين جو ترجمو ڪرڻ ۾ مدد ڪندو آهي.",
+      "output_marked": "ڪَمپِيوٽرُ پَروگرامِ ٻَولِينُ جو تَرجمَوُ ڪَرڻُ ۾ُ مَدَدَ ڪِندَوُ آهيُ.",
+      "output_words": 10,
+      "latency_ms": 6300.54,
+      "tokens_per_sec": 1.59
+    }
+  ]
+}

@@ -9,6 +9,7 @@ __pycache__/
 models/translation/*
 !models/translation/README.md
 models/diacritics/*.joblib
+!models/diacritics/diacritic_restorer.joblib
 
 # Large data files
 data/raw/*
@@ -20,6 +21,8 @@ data/processed/*
 venv/
 env/
 .env
+.streamlit/secrets.toml
+data/user_feedback.jsonl
 
 # IDE and OS
 .vscode/
