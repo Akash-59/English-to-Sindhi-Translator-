@@ -33,13 +33,14 @@ def setting_value(name: str):
 
 
 st.set_page_config(
-    page_title="Sindhi AI - English to Sindhi Translator",
+    page_title="Sindhi Translator",
     page_icon="📖",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 REMOTE_MODE = str(setting_value("SINDHI_PROVIDER_MODE") or "").lower() == "cloudflare"
+OFFLINE_VOICE_FEATURES_AVAILABLE = not REMOTE_MODE
 
 if REMOTE_MODE:
     from src.translation.cloudflare_provider import (
@@ -100,8 +101,8 @@ html, body, [class*="css"], .stMarkdown, .stTextInput, .stTextArea, .stButton {
     position: relative;
     overflow: hidden;
     border-radius: 22px;
-    padding: 2rem 2.2rem;
-    margin-bottom: 1.4rem;
+    padding: 1.35rem 1.6rem;
+    margin-bottom: 1rem;
     color: #ffffff;
     background:
         radial-gradient(circle at 85% 20%, rgba(251, 191, 36, 0.35), transparent 45%),
@@ -370,7 +371,11 @@ div[data-testid="stVerticalBlockBorderWrapper"] { border-radius: var(--sa-radius
     .sa-hero::after { font-size: 6rem; }
 }
 @media (max-width: 640px) {
-    .block-container { padding-top: 0.75rem; padding-left: 0.75rem; padding-right: 0.75rem; }
+    .block-container { padding-top: 0.75rem; padding-left: 0.75rem; padding-right: 0.75rem; max-width: 100%; }
+    div[data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; }
+    div[data-testid="stHorizontalBlock"] > div { width: 100% !important; flex: 1 1 100% !important; min-width: 0 !important; }
+    div[data-testid="stTextArea"] textarea { width: 100% !important; font-size: 16px !important; }
+    div[data-testid="stRadio"] label { flex: 1 1 calc(50% - 6px) !important; min-width: 0 !important; }
     .sa-hero { padding: 1.15rem 1rem; }
     .sa-hero h1 { font-size: 1.55rem; }
     .sa-hero p { font-size: 0.92rem; }
@@ -381,6 +386,18 @@ div[data-testid="stVerticalBlockBorderWrapper"] { border-radius: var(--sa-radius
     div[data-testid="stTabs"] button[role="tab"] { padding: 0.5rem 0.55rem; font-size: 0.78rem; min-height: 44px; }
     div[data-testid="stButton"] button, div[data-testid="stFormSubmitButton"] button { min-height: 44px; }
     .sindhi-text { font-size: 1.25rem; padding: 1rem; }
+}
+/* Simplified translator shell */
+div[data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"], .sa-footer { display: none !important; }
+.translator-title { font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.2; margin: 0 0 1rem; }
+div[data-testid="stVerticalBlockBorderWrapper"] { box-shadow: none; }
+@media (max-width: 640px) {
+    .block-container { padding-bottom: 1rem !important; }
+    .translator-title { margin-bottom: 0.75rem; }
+    div[data-testid="stRadio"] { width: 100%; }
+    div[data-testid="stRadio"] > div { gap: 6px !important; }
+    div[data-testid="stRadio"] label { min-height: 48px !important; }
+    div[data-testid="stRadio"] label p { font-size: 0.9rem !important; white-space: normal !important; }
 }
 </style>
 """,
@@ -645,438 +662,108 @@ with st.sidebar:
 # Main Application Interface
 # ---------------------------------------------------------------------------
 hero_description = (
-    "Cloud-hosted translation with local Sindhi diacritic tools. Submitted text is sent "
-    "to Cloudflare Workers AI; audio is not collected."
+    "Translate English into Sindhi in seconds using a cloud-hosted language model. "
+    "Audio is not collected in this hosted version."
     if REMOTE_MODE
-    else "Offline, privacy-preserving AI translation with Perso-Arabic script orthography and phonological vowel learning."
+    else "Translate English into Sindhi in seconds with local AI and Sindhi diacritic support."
 )
 hero_privacy_badge = (
     '<span class="sa-hero-badge">☁️ Cloud inference · text leaves this app</span>'
     if REMOTE_MODE
     else '<span class="sa-hero-badge">🔒 Private &amp; Offline</span>'
 )
-st.markdown(
-    f"""
-<div class="sa-hero">
-    <span class="sa-hero-eyebrow">AI Language Tools · Sindhi NLP</span>
-    <h1>English to Sindhi Translator</h1>
-    <p><strong>Translate naturally. Communicate confidently.</strong><br>{html.escape(hero_description)}</p>
-    <a class="sa-hero-cta" href="#translator-workspace">Start translating →</a>
-    <div class="sa-hero-badges" style="margin-top:0.75rem">
-        {hero_privacy_badge}
-        <span class="sa-hero-badge">{"☁️ Provider-hosted model" if REMOTE_MODE else "💻 Runs on 8 GB CPU"}</span>
-        <span class="sa-hero-badge">🎓 Learning Mode</span>
-        <span class="sa-hero-badge">📖 Verified Wordbook</span>
-    </div>
-</div>
-""",
-    unsafe_allow_html=True,
-)
+st.markdown('<h1 class="translator-title">Sindhi Translator</h1>', unsafe_allow_html=True)
 
 # Mode Selector Tabs
-tab_translate, tab_sindhi_to_english, tab_voice, tab_learning, tab_word_analysis, tab_dictionary, tab_benchmarks, tab_feedback = st.tabs([
-    "🔄 Translate & Restore",
-    "↔️ Sindhi to English",
-    "🎙️ Sindhi Voice",
-    "✨ Diacritic Intelligence",
-    "🔊 Word Sound & Pronunciation",
-    "📖 Verified Wordbook",
-    "📊 Benchmarks & Research",
-    "📝 User Feedback",
-])
+tab_translate, tab_more = st.tabs(["Translate", "More"])
+tab_sindhi_to_english = tab_voice = tab_learning = tab_word_analysis = tab_dictionary = tab_benchmarks = tab_feedback = tab_more
 
 # ---------------------------------------------------------------------------
 # Tab 1: Translate & Restore
 # ---------------------------------------------------------------------------
 with tab_translate:
-    st.markdown('<div id="translator-workspace"></div>', unsafe_allow_html=True)
-    if REMOTE_MODE:
-        st.caption(
-            "Cloud translation sends the submitted text to Cloudflare Workers AI. "
-            "Only M2M100's documented language list is offered here; Sindhi output quality "
-            "and orthography still require human review."
-        )
-        language_columns = st.columns([1, 0.25, 1])
-        with language_columns[0]:
-            source_language = st.selectbox(
-                "Source language",
-                list(SUPPORTED_LANGUAGES),
-                index=list(SUPPORTED_LANGUAGES).index("English"),
-                key="cloud_source_language",
-            )
-        with language_columns[1]:
-            st.button(
-                "⇄",
-                key="swap_cloud_languages",
-                help="Swap source and target languages",
-                on_click=lambda: st.session_state.update({
-                    "cloud_source_language": st.session_state.get(
-                        "cloud_target_language", "Sindhi"
-                    ),
-                    "cloud_target_language": st.session_state.get(
-                        "cloud_source_language", "English"
-                    ),
-                }),
-            )
-        with language_columns[2]:
-            target_language = st.selectbox(
-                "Target language",
-                list(SUPPORTED_LANGUAGES),
-                index=list(SUPPORTED_LANGUAGES).index("Sindhi"),
-                key="cloud_target_language",
-            )
-    else:
-        source_language = "English"
-        target_language = "Sindhi"
+    if "translation_direction" not in st.session_state:
+        st.session_state["translation_direction"] = "English → Sindhi"
+    if "simple_translation_input" not in st.session_state:
+        st.session_state["simple_translation_input"] = ""
+    if "simple_translation_output" not in st.session_state:
+        st.session_state["simple_translation_output"] = ""
 
-    col_input, col_output = st.columns([1, 1], gap="large")
+    def direction_changed():
+        st.session_state["simple_translation_input"] = ""
+        st.session_state["simple_translation_output"] = ""
 
-    with col_input:
-        with st.container(border=True):
-            section_header(
-                f"{source_language} Input",
-                "Type or paste the text you want to translate.",
-            )
-            default_prompt = (
-                "I am learning Sindhi. Books are our best friends."
-                if source_language == "English"
-                else ""
-            )
-            if "main_translation_input" not in st.session_state:
-                st.session_state["main_translation_input"] = default_prompt
-            user_input = st.text_area(
-                f"Enter {source_language} text (sentence, paragraph, or phrase):",
-                key="main_translation_input",
-                height=180,
-                placeholder=f"Type {source_language} text here...",
-                help="Text is sent to the configured translation provider after submission.",
-            )
-
-            char_cnt = len(user_input)
-            word_cnt = len(user_input.split())
-            st.markdown(
-                f'<div class="sa-stats">'
-                f'<span class="sa-pill">🔤 {char_cnt} characters</span>'
-                f'<span class="sa-pill">📝 {word_cnt} words</span>'
-                f"</div>",
-                unsafe_allow_html=True,
-            )
-
-            compare_alternatives = st.checkbox(
-                "Compare alternative translations",
-                value=False,
-                disabled=REMOTE_MODE,
-                help="Uses beam search to find up to three distinct candidates. Alternatives are suggestions, not verified translations.",
-            )
-            if REMOTE_MODE:
-                st.caption(
-                    "This remote model endpoint returns one result per request; it does not "
-                    "provide verified alternative translations."
-                )
-
-            col_b1, col_b2, col_b3 = st.columns([2, 1, 1])
-            with col_b1:
-                translate_btn = st.button(
-                    f"🚀 Translate to {target_language}",
-                    type="primary",
-                    use_container_width=True,
-                )
-            with col_b2:
-                restore_only_btn = st.button(
-                    "✨ Restore Diacritics",
-                    use_container_width=True,
-                    disabled=REMOTE_MODE and source_language != "Sindhi",
-                )
-            with col_b3:
-                st.button(
-                    "🧹 Clear",
-                    use_container_width=True,
-                    on_click=clear_main_translation_workspace,
-                )
-
-    with col_output:
-        with st.container(border=True):
-            section_header(
-                f"{target_language} Output",
-                "Sindhi remains right-to-left; other target languages use standard text direction.",
-            )
-
-            if not REMOTE_MODE or target_language == "Sindhi":
-                mode = st.radio(
-                    "Display Mode:",
-                    ["Standard Sindhi (Readable)", "Learning Mode (Phonological Vowels َ ِ ُ)"],
-                    horizontal=True,
-                )
-            else:
-                mode = "Standard Sindhi (Readable)"
-
-            output_placeholder = st.empty()
-
-            if translate_btn and user_input.strip():
-                try:
-                    with st.spinner(
-                        "Translating with Cloudflare Workers AI..."
-                        if REMOTE_MODE
-                        else "Translating on CPU..."
-                    ):
-                        start_t = time.time()
-                        if REMOTE_MODE:
-                            trans_result = translator.translate(
-                                user_input,
-                                source_language,
-                                target_language,
-                            )
-                            raw_sindhi = trans_result["translation"]
-                            candidates = []
-                        elif compare_alternatives:
-                            candidate_result = translator.translate_candidates(
-                                user_input,
-                                num_candidates=3,
-                                num_beams=4,
-                            )
-                            candidates = candidate_result["candidates"]
-                            if not candidates:
-                                st.error("The model did not return a usable Sindhi translation candidate.")
-                                raw_sindhi = None
-                            else:
-                                st.session_state["latest_translation_candidates"] = candidates
-                                st.session_state["preferred_translation_editor"] = candidates[0]
-                                raw_sindhi = candidates[0]
-                        else:
-                            trans_result = translator.translate(user_input)
-                            raw_sindhi = trans_result["sindhi"]
-                            candidates = []
-                            st.session_state.pop("latest_translation_candidates", None)
-                            st.session_state.pop("preferred_translation_editor", None)
-
-                        if raw_sindhi is not None:
-                            if target_language == "Sindhi":
-                                diacritic_result = diacritic_engine.restore(raw_sindhi)
-                                marked_sindhi = diacritic_result["marked"]
-                                tokens = diacritic_result["tokens"]
-                            else:
-                                marked_sindhi = raw_sindhi
-                                tokens = []
-                            total_latency = (time.time() - start_t) * 1000.0
-
-                            st.session_state["latest_english"] = user_input
-                            st.session_state["latest_sindhi"] = raw_sindhi
-                            st.session_state["latest_marked"] = marked_sindhi
-                            st.session_state["latest_tokens"] = tokens
-                            st.session_state["latest_latency"] = total_latency
-                            st.session_state["latest_target_language"] = target_language
-                            st.session_state["latest_output_editor"] = raw_sindhi
-                            st.session_state.pop("latest_translation_candidates", None)
-                            if (
-                                REMOTE_MODE
-                                and target_language == "Sindhi"
-                                and not any(
-                                    "\u0600" <= character <= "\u06ff"
-                                    and character.isalpha()
-                                    for character in raw_sindhi
-                                )
-                            ):
-                                st.warning(
-                                    "The output did not contain recognizable Arabic-derived "
-                                    "script letters. Review or edit it; script detection does "
-                                    "not establish translation correctness."
-                                )
-                except (RuntimeError, ValueError) as error:
-                    st.error(f"Translation failed: {error}")
-
-            elif restore_only_btn and user_input.strip():
-                if REMOTE_MODE and source_language != "Sindhi":
-                    st.warning("Diacritic restoration is only available for Sindhi text.")
-                else:
-                    with st.spinner("Restoring Sindhi vowel marks..."):
-                        diacritic_result = diacritic_engine.restore(user_input)
-                        st.session_state["latest_english"] = "(Direct Sindhi Input)"
-                        st.session_state["latest_sindhi"] = user_input
-                        st.session_state["latest_marked"] = diacritic_result["marked"]
-                        st.session_state["latest_tokens"] = diacritic_result["tokens"]
-                        st.session_state["latest_latency"] = 10.0
-                        st.session_state["latest_target_language"] = "Sindhi"
-                        st.session_state["latest_output_editor"] = user_input
-
-            # Display result
-            if "latest_sindhi" in st.session_state:
-                active_text = (
-                    st.session_state["latest_marked"]
-                    if "Learning" in mode
-                    and st.session_state.get("latest_target_language", "Sindhi") == "Sindhi"
-                    else st.session_state["latest_sindhi"]
-                )
-
-                if st.session_state.get("latest_target_language", "Sindhi") == "Sindhi":
-                    output_placeholder.markdown(
-                        f'<div class="sindhi-text">{esc(active_text)}</div>',
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    output_placeholder.write(active_text)
-                if REMOTE_MODE:
-                    st.caption(
-                        "No calibrated translation confidence score is provided by this endpoint."
-                    )
-
-                st.markdown(
-                    f'<div class="sa-stats">'
-                    f'<span class="sa-pill amber">⚡ {st.session_state.get("latest_latency", 0):.1f} ms latency</span>'
-                    f'<span class="sa-pill teal">📝 {len(active_text.split())} words</span>'
-                    f'<span class="sa-pill green">{"☁️ Cloud" if REMOTE_MODE else "🟢 Offline"}</span>'
-                    f"</div>",
-                    unsafe_allow_html=True,
-                )
-
-                st.text_area(
-                    "Edit the final translation",
-                    key="latest_output_editor",
-                    height=100,
-                )
-                copy_button_component(
-                    st.session_state["latest_output_editor"],
-                    "📋 Copy translation",
-                )
-                st.code(st.session_state["latest_output_editor"], language=None)
-
-                candidates = st.session_state.get("latest_translation_candidates", [])
-                if candidates:
-                    st.markdown("#### Translation comparison")
-                    st.caption(
-                        "Candidates are beam-search suggestions ranked by the model, not guaranteed-correct "
-                        "translations. Diacritic restoration remains a separate operation."
-                    )
-                    candidate_columns = st.columns(len(candidates))
-                    for index, (candidate, candidate_column) in enumerate(
-                        zip(candidates, candidate_columns), start=1
-                    ):
-                        with candidate_column:
-                            st.markdown(f"**Candidate {index}**")
-                            st.markdown(
-                                f'<div class="sindhi-text">{esc(candidate)}</div>',
-                                unsafe_allow_html=True,
-                            )
-                            if st.button(
-                                "Use this translation",
-                                key=f"select_translation_candidate_{index}",
-                                use_container_width=True,
-                            ):
-                                st.session_state["preferred_translation_editor"] = candidate
-                                activate_translation(candidate, diacritic_engine)
-                                st.rerun()
-
-                    if len(candidates) == 1:
-                        st.info("The model returned only one distinct candidate; no distinct alternative was available.")
-                    st.text_area(
-                        "Edit your preferred Sindhi translation",
-                        key="preferred_translation_editor",
-                        height=100,
-                    )
-                    if st.button("Use edited translation", key="apply_preferred_translation"):
-                        activate_translation(
-                            st.session_state["preferred_translation_editor"],
-                            diacritic_engine,
-                        )
-                        st.rerun()
-                    st.markdown("Copy-ready preferred translation")
-                    st.code(st.session_state["preferred_translation_editor"], language=None)
-            else:
-                output_placeholder.markdown(
-                    '<div class="sa-empty"><div class="sa-empty-icon">✍️</div>'
-                    "<div><b>Your Sindhi translation will appear here</b></div>"
-                    "<div style='font-size:0.85rem'>Enter English text and press “Translate to Sindhi”.</div></div>",
-                    unsafe_allow_html=True,
-                )
-
-# ---------------------------------------------------------------------------
-# Tab 2: Sindhi-to-English Translation
-# ---------------------------------------------------------------------------
-with tab_sindhi_to_english:
-    section_header(
-        "Sindhi to English Translation",
-        "Translate editable Sindhi text with the configured provider.",
-    )
-    if REMOTE_MODE:
-        st.caption(
-            "Submitting sends this text to Cloudflare Workers AI. Results are machine-generated "
-            "suggestions and may need review; audio is not used."
-        )
-    else:
-        st.caption(
-            "Text translation only. Results are machine-generated suggestions and may need review; "
-            "this feature does not use microphone input or audio."
-        )
-
-    if "sindhi_to_english_output" not in st.session_state:
-        st.session_state["sindhi_to_english_output"] = ""
-
-    with st.form("sindhi_to_english_form"):
-        sindhi_to_translate = st.text_area(
-            "Sindhi input (سنڌي)",
-            key="sindhi_to_english_input",
-            height=150,
-            placeholder="سنڌي جملو هتي لکو يا پيسٽ ڪريو",
-            help="Edit the Sindhi text here, then submit again to translate your changes.",
-        )
-        translate_to_english = st.form_submit_button(
-            "Translate to English",
-            type="primary",
-            use_container_width=True,
-        )
-
-    st.button(
-        "Clear Sindhi-to-English text",
-        key="clear_sindhi_to_english",
-        on_click=clear_sindhi_to_english_translation,
+    direction = st.radio(
+        "Translation direction",
+        ["English → Sindhi", "Sindhi → English"],
+        key="translation_direction",
+        horizontal=True,
+        on_change=direction_changed,
+        label_visibility="collapsed",
     )
 
-    if translate_to_english:
-        if not sindhi_to_translate.strip():
-            st.warning("Enter Sindhi text before translating.")
+    if direction == "English → Sindhi":
+        source_name, target_name = "English", "Sindhi"
+        input_label, placeholder = "Enter English text", "Type English text here…"
+    else:
+        source_name, target_name = "Sindhi", "English"
+        input_label, placeholder = "Enter Sindhi text", "سنڌي متن هتي لکو…"
+
+    user_input = st.text_area(
+        input_label,
+        key="simple_translation_input",
+        height=150,
+        placeholder=placeholder,
+    )
+
+    action_columns = st.columns([1, 1])
+    with action_columns[0]:
+        translate_clicked = st.button("Translate", type="primary", use_container_width=True)
+    with action_columns[1]:
+        clear_clicked = st.button("Clear", use_container_width=True)
+
+    if clear_clicked:
+        st.session_state["simple_translation_input"] = ""
+        st.session_state["simple_translation_output"] = ""
+        st.rerun()
+
+    if translate_clicked:
+        if not user_input.strip():
+            st.warning("Please enter some text.")
+            st.session_state["simple_translation_output"] = ""
         else:
             try:
-                with st.spinner(
-                    "Translating with Cloudflare Workers AI..."
-                    if REMOTE_MODE
-                    else "Translating Sindhi to English on CPU..."
-                ):
+                with st.spinner("Translating…"):
                     if REMOTE_MODE:
-                        reverse_result = translator.translate(
-                            sindhi_to_translate,
-                            "Sindhi",
-                            "English",
-                        )
-                        english_text = reverse_result["translation"]
+                        result = translator.translate(user_input, source_name, target_name)
+                        translated = result["translation"]
+                    elif direction == "English → Sindhi":
+                        translated = translator.translate(user_input)["sindhi"]
                     else:
-                        reverse_result = translator.translate_sindhi_to_english(
-                            sindhi_to_translate
-                        )
-                        english_text = reverse_result["english"]
-                st.session_state["sindhi_to_english_output"] = english_text
-                st.session_state["sindhi_to_english_latency"] = reverse_result["latency_ms"]
-            except (FileNotFoundError, OSError, RuntimeError, ValueError) as error:
-                st.error(f"Sindhi-to-English translation failed: {error}")
+                        translated = translator.translate_sindhi_to_english(user_input)["english"]
+                if not translated.strip():
+                    raise RuntimeError("No translation was produced")
+                st.session_state["simple_translation_output"] = translated
+                st.success("Translation ready.")
+            except (FileNotFoundError, OSError, RuntimeError, ValueError):
+                st.session_state["simple_translation_output"] = ""
+                st.error("Translation failed. Please try again.")
 
     st.text_area(
-        "English translation (editable)",
-        key="sindhi_to_english_output",
+        "Translation",
+        value=st.session_state["simple_translation_output"],
+        key="simple_translation_output_display",
         height=150,
-        placeholder="The English translation will appear here.",
+        disabled=False,
+        placeholder="Your translation will appear here.",
     )
-    copy_button_component(
-        st.session_state["sindhi_to_english_output"],
-        "📋 Copy English translation",
-    )
-    if "sindhi_to_english_latency" in st.session_state:
-        st.caption(
-            f"Translation time: {st.session_state['sindhi_to_english_latency']:.1f} ms"
-        )
+    copy_button_component(st.session_state["simple_translation_output"], "Copy")
 
 # ---------------------------------------------------------------------------
 # Tab 3: Sindhi voice workflow
 # ---------------------------------------------------------------------------
 with tab_voice:
-    if REMOTE_MODE:
+    if not OFFLINE_VOICE_FEATURES_AVAILABLE:
         section_header(
             "Sindhi Voice Input",
             "Speech transcription is unavailable in the public deployment until a provider is validated for Sindhi and Perso-Arabic output.",
@@ -1299,7 +986,7 @@ with tab_learning:
             disabled=not diacritic_source.strip(),
         )
     with reset_col:
-        st.button("Clear", use_container_width=True, on_click=reset_diacritic_state)
+        st.button("Clear", key="clear_diacritic_workspace", use_container_width=True, on_click=reset_diacritic_state)
 
     if analyze_diacritics:
         start_time = time.perf_counter()
@@ -1763,16 +1450,3 @@ with tab_feedback:
 # ---------------------------------------------------------------------------
 # Footer
 # ---------------------------------------------------------------------------
-footer_description = (
-    "Sindhi AI · Cloudflare Workers AI translation · existing local NLLB/Canopy modes remain available on your machine"
-    if REMOTE_MODE
-    else "Sindhi AI · Offline English-to-Sindhi Translation & Diacritic Restoration · Powered by NLLB-200 · Runs locally on CPU"
-)
-st.markdown(
-    '<div class="sa-footer">'
-    f'{html.escape(footer_description)}<br>'
-    'Translations may need human review. '
-    '<a href="https://github.com/Akash-59/English-to-Sindhi-Translator-" target="_blank" rel="noopener noreferrer">View project on GitHub</a>'
-    '</div>',
-    unsafe_allow_html=True,
-)
