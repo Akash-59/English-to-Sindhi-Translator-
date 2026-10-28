@@ -1,6 +1,6 @@
 # Phase 2: Cache Implementation Evaluation
 
-**Generated:** 2026-10-27T15:18:48.312393  
+**Generated:** 2026-10-28T12:25:23.715996  
 **Phase:** Phase 2 - Input Caching  
 **Cache Configuration:** Enabled with max size 1000 entries
 
@@ -12,11 +12,11 @@
 
 | Metric | Uncached (First Run) | Cached (Second Run) | Improvement |
 |--------|---------------------|---------------------|-------------|
-| **Average Latency** | 3818.5 ms | 14.2 ms | **+99.6%** |
-| **Median Latency** | 2560.8 ms | 13.1 ms | |
-| **Min Latency** | 1829.4 ms | 0.0 ms | |
-| **Max Latency** | 9492.4 ms | 35.0 ms | |
-| **Time Saved** | - | **3804.2 ms** | Per sentence |
+| **Average Latency** | 1472.0 ms | 4.4 ms | **+99.7%** |
+| **Median Latency** | 1289.9 ms | 3.0 ms | |
+| **Min Latency** | 792.1 ms | 0.0 ms | |
+| **Max Latency** | 2602.5 ms | 17.5 ms | |
+| **Time Saved** | - | **1467.6 ms** | Per sentence |
 
 ### Cache Statistics
 
@@ -38,20 +38,20 @@
 ### Latency Distribution
 
 **Uncached (First Run):**
-- Best case: 1829.4 ms
-- Median: 2560.8 ms
-- Average: 3818.5 ms
-- Worst case: 9492.4 ms
+- Best case: 792.1 ms
+- Median: 1289.9 ms
+- Average: 1472.0 ms
+- Worst case: 2602.5 ms
 
 **Cached (Second Run):**
 - Best case: 0.0 ms
-- Median: 13.1 ms
-- Average: 14.2 ms
-- Worst case: 35.0 ms
+- Median: 3.0 ms
+- Average: 4.4 ms
+- Worst case: 17.5 ms
 
 **Interpretation:**
 
-The cache provides **exceptional speedup** (99.6%), reducing latency to near-instant levels.
+The cache provides **exceptional speedup** (99.7%), reducing latency to near-instant levels.
 This indicates that the cache successfully bypasses model inference entirely.
 
 
@@ -64,58 +64,58 @@ This indicates that the cache successfully bypasses model inference entirely.
 **Example 1:**
 - Input: Hello, how are you?
 - Output: سلام، ڪيئن آهين؟
-- Latency: 9492.38 ms
+- Latency: 1084.0 ms
 - Cache Hit: False
 
 **Example 2:**
 - Input: Good morning.
 - Output: صبح جو سلام.
-- Latency: 2343.62 ms
+- Latency: 792.1 ms
 - Cache Hit: False
 
 **Example 3:**
 - Input: Thank you very much.
 - Output: شڪر آهي.
-- Latency: 2492.97 ms
+- Latency: 803.62 ms
 - Cache Hit: False
 
 **Example 4:**
 - Input: What is your name?
 - Output: تنهنجو نالو ڇا آهي؟
-- Latency: 2270.5 ms
+- Latency: 1066.92 ms
 - Cache Hit: False
 
 **Example 5:**
 - Input: Where do you live?
 - Output: تون ڪٿي رهندو آهين؟
-- Latency: 2134.78 ms
+- Latency: 1095.53 ms
 - Cache Hit: False
 
 ### Same 5 Translations (Cached)
 
 **Example 1:**
 - Input: Hello, how are you?
-- Latency: 13.83 ms (was 9492.38 ms, **+99.9%** speedup)
+- Latency: 0.0 ms (was 1084.0 ms, **+100.0%** speedup)
 - Cache Hit: ✅ YES
 
 **Example 2:**
 - Input: Good morning.
-- Latency: 1.74 ms (was 2343.62 ms, **+99.9%** speedup)
+- Latency: 0.0 ms (was 792.1 ms, **+100.0%** speedup)
 - Cache Hit: ✅ YES
 
 **Example 3:**
 - Input: Thank you very much.
-- Latency: 0.0 ms (was 2492.97 ms, **+100.0%** speedup)
+- Latency: 0.0 ms (was 803.62 ms, **+100.0%** speedup)
 - Cache Hit: ✅ YES
 
 **Example 4:**
 - Input: What is your name?
-- Latency: 15.18 ms (was 2270.5 ms, **+99.3%** speedup)
+- Latency: 12.48 ms (was 1066.92 ms, **+98.8%** speedup)
 - Cache Hit: ✅ YES
 
 **Example 5:**
 - Input: Where do you live?
-- Latency: 6.03 ms (was 2134.78 ms, **+99.7%** speedup)
+- Latency: 3.71 ms (was 1095.53 ms, **+99.7%** speedup)
 - Cache Hit: ✅ YES
 
 ---

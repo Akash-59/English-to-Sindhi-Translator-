@@ -14,6 +14,7 @@ from pathlib import Path
 import streamlit as st
 import pandas as pd
 import psutil
+from streamlit.components.v1 import html as embedded_html
 from streamlit.errors import StreamlitSecretNotFoundError
 
 import config
@@ -155,6 +156,36 @@ html, body, [class*="css"], .stMarkdown, .stTextInput, .stTextArea, .stButton {
     background: rgba(255, 255, 255, 0.14);
     border: 1px solid rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(4px);
+}
+
+/* ---------- Hero call-to-action ---------- */
+.sa-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0.15rem;
+    padding: 9px 16px;
+    border-radius: 999px;
+    color: #083b37 !important;
+    background: #ffffff;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none !important;
+    box-shadow: 0 8px 22px rgba(6, 78, 74, 0.22);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.sa-hero-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(6, 78, 74, 0.28);
+}
+.sa-hero-cta:focus-visible {
+    outline: 3px solid rgba(251, 191, 36, 0.85);
+    outline-offset: 3px;
+}
+
+/* ---------- Workspace polish ---------- */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    box-shadow: 0 5px 18px rgba(15, 118, 110, 0.06);
 }
 
 /* ---------- Section headings ---------- */
@@ -339,10 +370,17 @@ div[data-testid="stVerticalBlockBorderWrapper"] { border-radius: var(--sa-radius
     .sa-hero::after { font-size: 6rem; }
 }
 @media (max-width: 640px) {
+    .block-container { padding-top: 0.75rem; padding-left: 0.75rem; padding-right: 0.75rem; }
+    .sa-hero { padding: 1.15rem 1rem; }
+    .sa-hero h1 { font-size: 1.55rem; }
+    .sa-hero p { font-size: 0.92rem; }
+    .sa-hero-cta { width: 100%; justify-content: center; min-height: 44px; }
     .sa-hero::after { display: none; }
     .sa-word-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .sa-word-marked { font-size: 1.6rem; }
-    div[data-testid="stTabs"] button[role="tab"] { padding: 0.5rem 0.7rem; font-size: 0.85rem; }
+    div[data-testid="stTabs"] button[role="tab"] { padding: 0.5rem 0.55rem; font-size: 0.78rem; min-height: 44px; }
+    div[data-testid="stButton"] button, div[data-testid="stFormSubmitButton"] button { min-height: 44px; }
+    .sindhi-text { font-size: 1.25rem; padding: 1rem; }
 }
 </style>
 """,
@@ -363,6 +401,43 @@ def section_header(title: str, subtitle: str = "") -> None:
     st.markdown(
         f'<div class="sa-section-title"><span class="sa-dot"></span>{esc(title)}</div>{sub}',
         unsafe_allow_html=True,
+    )
+
+
+def copy_button_component(text: str, label: str = "Copy text") -> None:
+    """Adds a small client-side copy control without storing clipboard data."""
+    safe_text = json.dumps(str(text), ensure_ascii=False)
+    safe_text = (
+        safe_text.replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+        .replace("&", "\\u0026")
+        .replace("\u2028", "\\u2028")
+        .replace("\u2029", "\\u2029")
+    )
+    safe_label = html.escape(label)
+    safe_label_reset = json.dumps(str(label), ensure_ascii=False)
+    embedded_html(
+        f"""
+        <div style="margin:0.25rem 0 0.5rem">
+          <button id="copy-button" style="width:100%;border:1px solid rgba(127,127,127,.25);border-radius:12px;padding:0.55rem 0.75rem;background:rgba(127,127,127,.08);color:inherit;font-weight:700;cursor:pointer">
+            {safe_label}
+          </button>
+        </div>
+        <script>
+          const button = document.getElementById("copy-button");
+          const text = {safe_text};
+          button.addEventListener("click", async () => {{
+            try {{
+              await navigator.clipboard.writeText(text);
+              button.textContent = "Copied to clipboard";
+              setTimeout(() => button.textContent = {safe_label_reset}, 1800);
+            }} catch (_) {{
+              button.textContent = "Select the text and press Ctrl+C";
+            }}
+          }});
+        </script>
+        """,
+        height=58,
     )
 
 
@@ -583,10 +658,11 @@ hero_privacy_badge = (
 st.markdown(
     f"""
 <div class="sa-hero">
-    <span class="sa-hero-eyebrow">Neural Machine Translation · Sindhi NLP</span>
-    <h1>English to Sindhi Neural Translator &amp; Diacritic Restorer</h1>
-    <p>{html.escape(hero_description)}</p>
-    <div class="sa-hero-badges">
+    <span class="sa-hero-eyebrow">AI Language Tools · Sindhi NLP</span>
+    <h1>English to Sindhi Translator</h1>
+    <p><strong>Translate naturally. Communicate confidently.</strong><br>{html.escape(hero_description)}</p>
+    <a class="sa-hero-cta" href="#translator-workspace">Start translating →</a>
+    <div class="sa-hero-badges" style="margin-top:0.75rem">
         {hero_privacy_badge}
         <span class="sa-hero-badge">{"☁️ Provider-hosted model" if REMOTE_MODE else "💻 Runs on 8 GB CPU"}</span>
         <span class="sa-hero-badge">🎓 Learning Mode</span>
@@ -613,6 +689,7 @@ tab_translate, tab_sindhi_to_english, tab_voice, tab_learning, tab_word_analysis
 # Tab 1: Translate & Restore
 # ---------------------------------------------------------------------------
 with tab_translate:
+    st.markdown('<div id="translator-workspace"></div>', unsafe_allow_html=True)
     if REMOTE_MODE:
         st.caption(
             "Cloud translation sends the submitted text to Cloudflare Workers AI. "
@@ -854,7 +931,11 @@ with tab_translate:
                 st.text_area(
                     "Edit the final translation",
                     key="latest_output_editor",
-                    height=80,
+                    height=100,
+                )
+                copy_button_component(
+                    st.session_state["latest_output_editor"],
+                    "📋 Copy translation",
                 )
                 st.code(st.session_state["latest_output_editor"], language=None)
 
@@ -981,6 +1062,10 @@ with tab_sindhi_to_english:
         key="sindhi_to_english_output",
         height=150,
         placeholder="The English translation will appear here.",
+    )
+    copy_button_component(
+        st.session_state["sindhi_to_english_output"],
+        "📋 Copy English translation",
     )
     if "sindhi_to_english_latency" in st.session_state:
         st.caption(
@@ -1684,6 +1769,10 @@ footer_description = (
     else "Sindhi AI · Offline English-to-Sindhi Translation & Diacritic Restoration · Powered by NLLB-200 · Runs locally on CPU"
 )
 st.markdown(
-    f'<div class="sa-footer">{html.escape(footer_description)}</div>',
+    '<div class="sa-footer">'
+    f'{html.escape(footer_description)}<br>'
+    'Translations may need human review. '
+    '<a href="https://github.com/Akash-59/English-to-Sindhi-Translator-" target="_blank" rel="noopener noreferrer">View project on GitHub</a>'
+    '</div>',
     unsafe_allow_html=True,
 )
